@@ -85,7 +85,7 @@ function addPlayer(player_) {
                 let voteBtn = document.createElement('button');
                 voteBtn.setAttribute("class", "img");
                 voteBtn.setAttribute("title", "Vote");
-                addImage(voteBtn, "voteBtn", "http://werewolfx.com/resources/voteicon.png");
+                addImage(voteBtn, "voteBtn", "http://werewolfx.com/resources/VoteIcon.png");
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;

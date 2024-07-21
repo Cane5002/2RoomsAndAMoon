@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://adder-clean-clam.ngrok-free.app/css/input.css" rel="stylesheet"/>
+    <title>Lobby: <%=locals.game.roomCode%></title>
 </head>
-<body>
-    <header>
-        <h1>Room Code: <%=locals.game.roomCode%></h1>
-    </header>
-    <div id="currentPlayerList">
-        <div style="float: left; padding-right: 5px">Players</div>
-        <div id="currentPlayerCnt" style="float: left">0</div>
-        <div style="float: left">/</div>
-        <div id="maxPlayerCnt"><%=locals.game.playerCnt%></div>
-        <div id="players" style="padding-left: 10px"></div>
+<body class="night">
+    <div style="margin-bottom: 20px; margin-top: 20px;">
+        <h2>Room <%=locals.game.roomCode%></h2>
+    </div>
+    <div id="currentPlayerList" class="village" style="margin-bottom: 10px;">
+        <div style="display:flex; align-items: center; justify-content: center;">
+            <h3 style="padding-right: 5px">Players</h3>
+            <h3 id="currentPlayerCnt" style="padding-right:0px">0</h3>
+            <h3 style="padding-right:0px">/</h3>
+            <h3 id="maxPlayerCnt"><%=locals.game.playerCnt%></h3>
+        </div>
+        <div id="players" class="playerList" style="padding-left: 10px; min-height: auto;"></div>
     </div><br/>
-    <div id="startGame">
-        <button id="startGameBtn" disabled="true">Start Game</button>
+    <div id="startGame" class="column">
+        <button id="startGameBtn" class="submit" style="margin-top: 0px;" disabled="true">Start Game</button>
     </div>
     <script src="https://adder-clean-clam.ngrok-free.app/scripts/lobby.js"></script>
 </body>

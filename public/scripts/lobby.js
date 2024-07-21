@@ -28,8 +28,10 @@ function updatePlayers(players) {
 
 function addPlayer(player) {
     let playerDiv = document.createElement('div');
+    playerDiv.setAttribute("class","player");
     playerDiv.textContent = player.name;
     let removePlayerBtn = document.createElement('button');
+    removePlayerBtn.setAttribute("style", "margin-left: 5px;");
     removePlayerBtn.textContent = "-";
     removePlayerBtn.addEventListener('click', function() {
         removePlayer(player.id).then(() => {

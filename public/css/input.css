@@ -123,8 +123,15 @@ button.submit {
     font-size: 40px;
     font-weight: 900px;
 }
+button.submit:disabled {
+    background-color: #7b7f81ff;
+    color: rgb(69, 73, 74);
+}
 button:hover {
     opacity:0.8;
+}
+button.submit:disabled:hover {
+    opacity: 1;
 }
 
 .villageTxt {

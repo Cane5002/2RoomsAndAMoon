@@ -5,7 +5,7 @@ var game;
 
 console.log(`RC:${roomCode}`)
 
-const villageStream = new EventSource(`https://www.werewolfx.com/${roomCode}/stream/game`);
+const villageStream = new EventSource(`http://werewolfx.com/${roomCode}/stream/game`);
 
 villageStream.onmessage = function (ev) {
     let data = JSON.parse(ev.data);

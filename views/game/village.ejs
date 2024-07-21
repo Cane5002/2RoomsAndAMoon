@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://adder-clean-clam.ngrok-free.app/css/input.css" rel="stylesheet"/>
+    <title>Document</title>
+</head>
+<body id="bg" class="day" style="display: flex; flex-direction: column; justify-content: center;">
+    <header id="header">
+        <img id="night" src="https://adder-clean-clam.ngrok-free.app/resources/moonicon.png" style="display: none;"></img>
+        <img id="day" src="https://static.vecteezy.com/system/resources/previews/009/663/135/non_2x/sun-sun-ray-icon-transparent-free-png.png" style="display: block;"></img>
+        <h1 id="dayCnt"><%=locals.dayCnt%></h1>
+        <h1> - </h1>
+        <h1 id="phase"><%=locals.phase%></h1>
+    </header>
+    <div id="villageSelect" style="display: none"></div>
+    <div id="poll" style="display: flex; justify-content: center; align-items: center; height: 75px;">
+        <button class="img" id="vPollBtn"><img style="width: 50px; padding-right:5px;" src="https://mcheads.ru/heads/medium/front/vlfl.png"></button>
+        <div class="pollBG"><div id="pollBar" class="pollBar" style="width: 50%;">|</div></div>
+        <button class="img" id="wPollBtn"><img class="wwIcon" src="https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png"></button>
+    </div>
+    <div class="village">
+        <h2 id="villageTitle">Village <%=locals.roomNum%></h2>
+        <h3 id="susCntr"></h3>
+        <div id="playerList" class="playerList">
+        </div>
+    </div>
+    <div id="powers" style="display:flex; justify-content: center;"></div>
+    <div id="log">
+        <h2>Log</h2>
+        <div id="msgList"></div>
+    </div>
+    <footer id="footer">
+    </footer>
+    <script id="villageScript" src="https://adder-clean-clam.ngrok-free.app/scripts/village.js" 
+    roomcode="<%=locals.roomCode%>"
+    playerid="<%=locals.playerID%>"></script>
+</body>
+</html>

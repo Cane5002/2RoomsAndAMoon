@@ -1,5 +1,6 @@
-(https://github.com/Cane5002/2RoomsAndAMoon/blob/main/public/resources/2RoomsAndAMoonLogo.png)
+![2RoomsAndAMoonLogo](https://github.com/Cane5002/2RoomsAndAMoon/blob/main/public/resources/2RoomsAndAMoonLogo.png)
 ## 2 Rooms and a Moon is an adaptation of the popular social deduction game Werewolf that introduces the ability to play with multiple villages
+You can view the current build at [werewolfx.com](http://werewolfx.com)
 
 ## Rules
 There are four phases of gameplay: Night, Discussion, Voting, and the new Movement phase

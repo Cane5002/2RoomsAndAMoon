@@ -7,7 +7,7 @@ var game;
 
 console.log(`RC:${roomCode} | PID:${playerID}`)
 
-const villageStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/game`);
+const villageStream = new EventSource(`https://www.werewolfx.com/${roomCode}/stream/game`);
 
 var init = false;
 villageStream.onmessage = function (ev) {
@@ -85,7 +85,7 @@ function addPlayer(player_) {
                 let voteBtn = document.createElement('button');
                 voteBtn.setAttribute("class", "img");
                 voteBtn.setAttribute("title", "Vote");
-                addImage(voteBtn, "voteBtn", "https://adder-clean-clam.ngrok-free.app/resources/voteicon.png");
+                addImage(voteBtn, "voteBtn", "https://www.werewolfx.com/resources/voteicon.png");
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;
@@ -101,14 +101,14 @@ function addPlayer(player_) {
                 switch(player.role) {
                     case "Seer":
                         if (player_.role=="Apprentice Seer") {
-                            addImage(playerDiv, "apSeerIcon", "https://adder-clean-clam.ngrok-free.app/resources/ApSeerIcon.png");
+                            addImage(playerDiv, "apSeerIcon", "https://www.werewolfx.com/resources/ApSeerIcon.png");
                             break;
                         }
                         if(player.canPower==0) break;
                         let seerBtn = document.createElement('button');
                         seerBtn.setAttribute("class", "img");
                         seerBtn.setAttribute("title", "Check");
-                        addImage(seerBtn, "seerBtn", "https://adder-clean-clam.ngrok-free.app/resources/CheckIcon.png");
+                        addImage(seerBtn, "seerBtn", "https://www.werewolfx.com/resources/CheckIcon.png");
                         seerBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -121,17 +121,17 @@ function addPlayer(player_) {
                         break;
                     case "Apprentice Seer":
                         if (player_.role=="Seer") {
-                            addImage(playerDiv, "seerIcon", "https://adder-clean-clam.ngrok-free.app/resources/SeerIcon.png");
+                            addImage(playerDiv, "seerIcon", "https://www.werewolfx.com/resources/SeerIcon.png");
                         }
                         break;
                     case "Beholder":
                         if (player_.role=="Seer") {
-                            addImage(playerDiv, "seerIcon", "https://adder-clean-clam.ngrok-free.app/resources/SeerIcon.png");
+                            addImage(playerDiv, "seerIcon", "https://www.werewolfx.com/resources/SeerIcon.png");
                         }
                         break;
                     case "Mason":
                         if (player_.role=="Mason") {
-                            addImage(playerDiv, "masonIcon", "https://adder-clean-clam.ngrok-free.app/resources/MasonIcon.png");
+                            addImage(playerDiv, "masonIcon", "https://www.werewolfx.com/resources/MasonIcon.png");
                         }
                         break;
                     case "Bump":
@@ -139,7 +139,7 @@ function addPlayer(player_) {
                         let bumpBtn = document.createElement('button');
                         bumpBtn.setAttribute("class", "img");
                         bumpBtn.setAttribute("title", "Bump");
-                        addImage(bumpBtn, "bumpBtn", "https://adder-clean-clam.ngrok-free.app/resources/BumpIcon.png");
+                        addImage(bumpBtn, "bumpBtn", "https://www.werewolfx.com/resources/BumpIcon.png");
                         bumpBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -164,7 +164,7 @@ function addPlayer(player_) {
                         let attackBtn = document.createElement('button');
                         attackBtn.setAttribute("class", "img");
                         attackBtn.setAttribute("title", "Attack");
-                        addImage(attackBtn, "attackBtn", "https://adder-clean-clam.ngrok-free.app/resources/AttackIcon.png");
+                        addImage(attackBtn, "attackBtn", "https://www.werewolfx.com/resources/AttackIcon.png");
                         attackBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -234,7 +234,7 @@ function addVillageSelector() {
             });
             hideVillageSelector();
         });
-        addImage(villageBtn, "villageIcon", "https://adder-clean-clam.ngrok-free.app/resources/VillageIcon.png");
+        addImage(villageBtn, "villageIcon", "https://www.werewolfx.com/resources/VillageIcon.png");
         let btnTxt = document.createElement('div');
         btnTxt.setAttribute("class", "villageTxt");
         btnTxt.textContent = i;

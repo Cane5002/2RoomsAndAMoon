@@ -3,7 +3,7 @@ if (url.lastIndexOf('/')==(url.length-1)) url=url.substring(0,url.length-1);
 const roomCode = url.substring(url.lastIndexOf('/')+1, url.length);
 
 //Change to server URL
-const lobbyStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/lobby`);
+const lobbyStream = new EventSource(`https://www.werewolfx.com/${roomCode}/stream/lobby`);
 
 lobbyStream.onmessage = function (ev) {
     let data = JSON.parse(ev.data)

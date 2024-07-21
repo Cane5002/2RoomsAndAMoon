@@ -227,7 +227,7 @@ function addVillageSelector() {
         villageBtn.setAttribute("class", "img");
         villageBtn.setAttribute("Title", `Move to village ${i}`);
         villageBtn.addEventListener('click', function() {
-            if (player.role=="Lost") setDestination(Math.floor(Math.random() * game.roomCnt))
+            if (player.role=="Lost") setDestination(Math.floor(Math.random() * (game.roomCnt-1))+1)
             else setDestination(i)
             .then(() => {
                 console.log("Moved");

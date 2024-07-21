@@ -50,7 +50,7 @@ router.get('/moderator', modUtils.isModerator, (req, res) => {
 router.put('/phase', gameUtils.nextPhase, playerUtils.movePlayers, playerUtils.resetPlayers, roleUtils.resetPower, roleUtils.resolveAttacks, (req, res) => {
 // router.put('/phase', gameUtils.nextPhase, playerUtils.movePlayers, (req, res) => {
     console.log(`Ending ${res.locals.game.phase}`);
-    if (res.locals.game.phase=="Night") playerUtils.logRoom(res.locals.game.roomCode, `Day ${res.locals.game.dayCnt}`);
+    if (res.locals.game.phase=="Night") playerUtils.logRoom(res.locals.game.roomCode, `Day ${res.locals.game.dayCnt+1}`);
     res.status(201).send();
 })
 

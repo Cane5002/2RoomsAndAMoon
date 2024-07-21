@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link href="https://adder-clean-clam.ngrok-free.app/css/input.css" rel="stylesheet"/>
+    <title>Join Game</title>
 </head>
-<body>
+<body class="night">
+    <p style="position:aboslute; top: 10px; left: 10px;" ><a href="/">back</a></p>
     <header>
-        <div style="float:left"><a href="/">back</a></div>
         <div style="float:left"><h1>Join Game</h1></div>
-        <div style="clear:both"></div>
         <br/>
     </header>
-    <div class="main">
-        <div id="roomCodeDiv">
-            <label for="roomCode">Room Code</label>
+    <div class="column">
+        <div id="roomCodeDiv" class="column" style="margin-top: 40px; margin-bottom: 20px;">
+            <h2><label for="roomCode">Room Code</label></h2>
             <input type="text" id="roomCode" value=<%=locals.roomCode%>>
         </div>
-        <div id="nameDiv">
-            <label for="name">Nickname</label>
+        <div id="nameDiv" class="column">
+            <h2><label for="name">Nickname</label></h2>
             <input type="text" id="name" value=<%=locals.nickname%>>
         </div>
-        <button id="submit">Join</button>
+        <button id="submit" class="submit" style="width: 200px; font-size: 30px;">Join</button>
     </div>
     <script src="https://adder-clean-clam.ngrok-free.app/scripts/join-game.js"></script>
 </body>

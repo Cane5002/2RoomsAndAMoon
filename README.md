@@ -5,5 +5,5 @@ For setting up EC2 refer to https://jonathans199.medium.com/how-to-deploy-node-e
 2. cd 2RoomsAndAMoon
 3. npm install
 4. set desired port in ./bin/www.js
-5. npm start
+5. npm start <br>
 5.5 pm2 start .bin/www.js (if you want to run even when cli is not open

@@ -153,3 +153,20 @@ async function endGame() {
     });
     return response;
 }
+
+const shuffleBtn = document.getElementById('shuffleBtn');
+shuffleBtn.addEventListener('click', function () {
+    shufflePlayers()
+    .then(() => {
+        console.log("Shuffled players");
+    })
+});
+async function shufflePlayers() {
+    let response = fetch(`/${roomCode}/shuffle`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response;
+}

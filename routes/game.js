@@ -90,6 +90,10 @@ router.delete('/player/:playerId', playerUtils.removePlayer, (req, res) => {
     res.status(201).send();
 })
 
+router.put('/shuffle', playerUtils.shufflePlayers, (req, res) => {
+    res.status(201).send();
+})
+
 router.delete('/endGame', playerUtils.deletePlayers, gameUtils.deleteGame, (req, res) => {
     res.status(201).send();
 })

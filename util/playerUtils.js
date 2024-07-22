@@ -185,6 +185,22 @@ exports.movePlayers = function movePlayer(req, res, next) {
         }
     )
 }
+
+exports.shufflePlayers = function movePlayer(req, res, next) {
+    if (!res.locals.game) return next(new Error("game doesn't exist"));
+    console.log("Shuffling players");
+    db.run("Update players Set room=(abs(Random())%? + 1) WHERE roomCode=?",
+        [res.locals.game.roomCnt, res.locals.game.roomCode],
+        (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } 
+            console.log("Success");
+            next();
+        }
+    )
+}
                 
 exports.resetPlayers = function resetPlayers(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));

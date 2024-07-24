@@ -35,7 +35,8 @@ db.serialize(function() {
         attacks INTEGER NOT NULL, \
         votes INTEGER NOT NULL, \
         susses INTEGER NOT NULL, \
-        destination INTEGER \
+        destination INTEGER, \
+        flags INTEGER NOT NULL \
         );")
 });
 

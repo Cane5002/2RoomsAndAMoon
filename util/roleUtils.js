@@ -1,7 +1,7 @@
 const db = require('./db.js');
 const playerUtils = require('./playerUtils.js');
             
-const dailyPowerRoles = ["Werewolf", "Seer", "Apprentice Seer", "Bump"]
+const dailyPowerRoles = ["Werewolf", "Seer", "Apprentice Seer", "Bump", "Siren", "Sorcerer"]
 exports.resetPower = function resetPower(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
     if (res.locals.game.phase!="Movement") return next();

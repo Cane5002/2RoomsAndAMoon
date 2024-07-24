@@ -15,6 +15,7 @@ class Player {
         this.votes = player.votes;
         this.susses = player.susses;
         this.destination = player.destination;
+        this.lost = (player.flags & 1) > 0;
     }
 }
 

@@ -177,6 +177,18 @@ button.submit:disabled:hover {
     margin-bottom: -12px;
 }
 
+.sorcererBtn {
+    width: 60px;
+    height: 43.49px;
+    margin-bottom: 5px;
+}
+
+.twisterBtn {
+    width: 50px;
+    height: 51.35px;
+    margin-bottom: -5px;
+}
+
 .bumpBtn {
     width: 60px;
     height: 43.49px;

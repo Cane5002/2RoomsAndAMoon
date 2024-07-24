@@ -7,7 +7,7 @@ var game;
 
 console.log(`RC:${roomCode} | PID:${playerID}`)
 
-const villageStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/game`);
+const villageStream = new EventSource(`localhost/${roomCode}/stream/game`);
 
 var init = false;
 villageStream.onmessage = function (ev) {
@@ -85,7 +85,7 @@ function addPlayer(player_) {
                 let voteBtn = document.createElement('button');
                 voteBtn.setAttribute("class", "img");
                 voteBtn.setAttribute("title", "Vote");
-                addImage(voteBtn, "voteBtn", "https://adder-clean-clam.ngrok-free.app/resources/voteicon.png");
+                addImage(voteBtn, "voteBtn", "localhost/resources/voteicon.png");
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;
@@ -101,14 +101,14 @@ function addPlayer(player_) {
                 switch(player.role) {
                     case "Seer":
                         if (player_.role=="Apprentice Seer") {
-                            addImage(playerDiv, "apSeerIcon", "https://adder-clean-clam.ngrok-free.app/resources/ApSeerIcon.png");
+                            addImage(playerDiv, "apSeerIcon", "localhost/resources/ApSeerIcon.png");
                             break;
                         }
                         if(player.canPower==0) break;
                         let seerBtn = document.createElement('button');
                         seerBtn.setAttribute("class", "img");
                         seerBtn.setAttribute("title", "Check");
-                        addImage(seerBtn, "seerBtn", "https://adder-clean-clam.ngrok-free.app/resources/CheckIcon.png");
+                        addImage(seerBtn, "seerBtn", "localhost/resources/CheckIcon.png");
                         seerBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -121,17 +121,17 @@ function addPlayer(player_) {
                         break;
                     case "Apprentice Seer":
                         if (player_.role=="Seer") {
-                            addImage(playerDiv, "seerIcon", "https://adder-clean-clam.ngrok-free.app/resources/SeerIcon.png");
+                            addImage(playerDiv, "seerIcon", "localhost/resources/SeerIcon.png");
                         }
                         break;
                     case "Beholder":
                         if (player_.role=="Seer") {
-                            addImage(playerDiv, "seerIcon", "https://adder-clean-clam.ngrok-free.app/resources/SeerIcon.png");
+                            addImage(playerDiv, "seerIcon", "localhost/resources/SeerIcon.png");
                         }
                         break;
                     case "Mason":
                         if (player_.role=="Mason") {
-                            addImage(playerDiv, "masonIcon", "https://adder-clean-clam.ngrok-free.app/resources/MasonIcon.png");
+                            addImage(playerDiv, "masonIcon", "localhost/resources/MasonIcon.png");
                         }
                         break;
                     case "Bump":
@@ -139,7 +139,7 @@ function addPlayer(player_) {
                         let bumpBtn = document.createElement('button');
                         bumpBtn.setAttribute("class", "img");
                         bumpBtn.setAttribute("title", "Bump");
-                        addImage(bumpBtn, "bumpBtn", "https://adder-clean-clam.ngrok-free.app/resources/BumpIcon.png");
+                        addImage(bumpBtn, "bumpBtn", "localhost/resources/BumpIcon.png");
                         bumpBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -150,10 +150,45 @@ function addPlayer(player_) {
                         });
                         playerDiv.appendChild(bumpBtn);
                         break;
+                    case "Twister":
+                        if(player.canPower==0) break;
+                        let twisterBtn = document.createElement('button');
+                        twisterBtn.setAttribute("class", "img");
+                        twisterBtn.setAttribute("title", "Lost");
+                        addImage(twisterBtn, "twisterBtn", "localhost/resources/TwisterIcon.png");
+                        twisterBtn.addEventListener('click', function() {
+                            if(player.canPower==0) return;
+                            player.canPower--;
+                            setStatus(player_.id, "Lost")
+                            .then(() => {
+                                console.log("Used Power");
+                            });
+                        });
+                        playerDiv.appendChild(twisterBtn);
+                        break;
                     case "Minion":
                         if (player_.role=="Werewolf") {
                             addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
                         }
+                        break;
+                    case "Sorcerer":
+                        if (player_.role=="Werewolf") {
+                            addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
+                        }
+                        if(player.canPower==0) break;
+                        let sorcererBtn = document.createElement('button');
+                        sorcererBtn.setAttribute("class", "img");
+                        sorcererBtn.setAttribute("title", "Check");
+                        addImage(sorcererBtn, "sorcererBtn", "localhost/resources/SorcererCheckIcon.png");
+                        sorcererBtn.addEventListener('click', function() {
+                            if(player.canPower==0) return;
+                            player.canPower--;
+                            sorcerer(player_.id)
+                            .then(() => {
+                                console.log("Used Power");
+                            });
+                        });
+                        playerDiv.appendChild(sorcererBtn);
                         break;
                     case "Werewolf":
                         if (player_.role=="Werewolf") {
@@ -168,7 +203,7 @@ function addPlayer(player_) {
                         let attackBtn = document.createElement('button');
                         attackBtn.setAttribute("class", "img");
                         attackBtn.setAttribute("title", "Attack");
-                        addImage(attackBtn, "attackBtn", "https://adder-clean-clam.ngrok-free.app/resources/AttackIcon.png");
+                        addImage(attackBtn, "attackBtn", "localhost/resources/AttackIcon.png");
                         attackBtn.addEventListener('click', function() {
                             if(player.canPower==0) return;
                             player.canPower--;
@@ -232,13 +267,17 @@ function addVillageSelector() {
         villageBtn.setAttribute("Title", `Move to village ${i}`);
         villageBtn.addEventListener('click', function() {
             if (player.role.replace("[Hidden]", "")=="Lost") setDestination(Math.floor(Math.random() * (game.roomCnt-1))+1)
+            else if (player.lost) {
+                setDestination(Math.floor(Math.random() * (game.roomCnt-1))+1)
+                clearStatus(player.id, "Lost");
+            }
             else setDestination(i)
             .then(() => {
                 console.log("Moved");
             });
             hideVillageSelector();
         });
-        addImage(villageBtn, "villageIcon", "https://adder-clean-clam.ngrok-free.app/resources/VillageIcon.png");
+        addImage(villageBtn, "villageIcon", "localhost/resources/VillageIcon.png");
         let btnTxt = document.createElement('div');
         btnTxt.setAttribute("class", "villageTxt");
         btnTxt.textContent = i;
@@ -350,6 +389,32 @@ async function vote(targetID) {
     });
     return response;
 }
+async function setStatus(targetID, status) {
+    console.log("Status!");
+    response = fetch(`/${roomCode}/setStatus/${targetID}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: {
+            status: status
+        }
+    });
+    return response;
+}
+async function clearStatus(targetID, status) {
+    console.log("No Status!");
+    response = fetch(`/${roomCode}/clearStatus/${targetID}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: {
+            status: status
+        }
+    });
+    return response;
+}
 async function attack(targetID) {
     console.log("Attack!");
     response = fetch(`/${roomCode}/role/attack/${targetID}`, {
@@ -363,6 +428,16 @@ async function attack(targetID) {
 async function seer(targetID) {
     console.log("Seer!");
     response = fetch(`/${roomCode}/role/seer/${targetID}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response;
+}
+async function sorcerer(targetID) {
+    console.log("Sorcerer!");
+    response = fetch(`/${roomCode}/role/sorcerer/${targetID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

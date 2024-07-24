@@ -7,7 +7,7 @@ var gameData_;
 
 console.log(`rc: ${roomCode} | pid: ${playerID}`);
 
-const playerStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/game`);
+const playerStream = new EventSource(`localhost/${roomCode}/stream/game`);
 
 playerStream.onmessage = function (ev) {
     let dayChanged = false;

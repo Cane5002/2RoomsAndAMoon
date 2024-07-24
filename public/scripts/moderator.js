@@ -5,7 +5,7 @@ var game;
 
 console.log(`RC:${roomCode}`)
 
-const villageStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/game`);
+const villageStream = new EventSource(`localhost/${roomCode}/stream/game`);
 
 villageStream.onmessage = function (ev) {
     let data = JSON.parse(ev.data);

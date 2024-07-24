@@ -42,6 +42,20 @@ router.get('/count/:room', playerUtils.getPlayers, (req, res) => {
     res.status(201).send();
 })
 
+router.put('/sorcerer/:targetID', playerUtils.getPlayers, (req, res) => {
+    if (res.locals.alert) {
+        console.log(res.locals.alert);
+        return next();
+    }
+    console.log("Sorcering");
+    let target = res.locals.players.find(p => p.id==req.params.targetID)
+    let seerBool = false;
+    if (target) seerBool = (target.role=="Seer");
+    playerUtils.logPlayer(res.locals.player.id, `${target.name} is ${seerBool ? "" : "not "} the Seer`);
+    
+    res.status(201).send();
+})
+
 router.put('/bump/:targetID', (req, res) => {
     if (res.locals.alert) {
         console.log(res.locals.alert);

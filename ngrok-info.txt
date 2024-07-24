@@ -1,1 +1,1 @@
-ngrok http --domain=adder-clean-clam.ngrok-free.app 3000
+ngrok http --domain=localhost 3000

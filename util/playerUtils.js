@@ -55,8 +55,8 @@ exports.addPlayer = function addPlayer(req, res, next) {
         res.locals.alert = "Room full";
         return next();
     }
-    db.run("INSERT INTO players (sessionID, roomCode, name, room, log, alive, canVote, canPower, canSus, attacks, votes, susses, destination) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-        [req.sessionID, req.body.roomCode, req.body.name, 1, '[]', true, true, 1, 3, 0, 0, 0, -1],
+    db.run("INSERT INTO players (sessionID, roomCode, name, room, log, alive, canVote, canPower, canSus, attacks, votes, susses, destination, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+        [req.sessionID, req.body.roomCode, req.body.name, 1, '[]', true, true, 1, 3, 0, 0, 0, -1, 0],
         (err) => {
             if (err) return next(err);
             next();
@@ -164,6 +164,42 @@ exports.votePlayer = function votePlayer(req, res, next) {
         [false, res.locals.game.roomCode, req.sessionID],
         (err) => {
             if (err) return next(err);
+            next();
+        }
+    )
+}
+
+const Statuses = new Map([
+    ["Lost", 1<<0],
+]);
+exports.setPlayerStatus = function setPlayerStatus(req, res, next) {
+    if (!res.locals.game) return next(new Error("game doesn't exist"));
+    console.log("Setting Status");
+    
+    db.run("UPDATE players SET flags=flags|? WHERE id=?;",
+        [Statuses[req.body.status], req.params.targetID],
+        (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } 
+            console.log("Success");
+            next();
+        }
+    )
+}
+exports.clearPlayerStatus = function setPlayerStatus(req, res, next) {
+    if (!res.locals.game) return next(new Error("game doesn't exist"));
+    console.log("Clearing Status");
+    
+    db.run("UPDATE players SET flags=flags&(~?) WHERE id=?;",
+        [Statuses[req.body.status], req.params.targetID],
+        (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } 
+            console.log("Success");
             next();
         }
     )

@@ -89,7 +89,7 @@ function addPlayer(player_) {
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;
-                    if (player.role=="Idiot") vote(player.id);
+                    if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id);
                     else vote(player_.id)
                     .then(() => {
                         console.log("Voted");
@@ -160,6 +160,10 @@ function addPlayer(player_) {
                             addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
                             break;
                         }
+                        if (player_.role.replace("[Hidden]","")=="Lycan") {
+                            addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
+                            break;
+                        }
                         if(player.canPower==0) break;
                         let attackBtn = document.createElement('button');
                         attackBtn.setAttribute("class", "img");
@@ -227,7 +231,7 @@ function addVillageSelector() {
         villageBtn.setAttribute("class", "img");
         villageBtn.setAttribute("Title", `Move to village ${i}`);
         villageBtn.addEventListener('click', function() {
-            if (player.role=="Lost") setDestination(Math.floor(Math.random() * (game.roomCnt-1))+1)
+            if (player.role.replace("[Hidden]", "")=="Lost") setDestination(Math.floor(Math.random() * (game.roomCnt-1))+1)
             else setDestination(i)
             .then(() => {
                 console.log("Moved");

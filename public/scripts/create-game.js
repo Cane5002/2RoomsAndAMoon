@@ -10,9 +10,16 @@ const roleList = ["Villager",
   "Idiot",
   "Beholder",
   "Minion",
+  "Lycan",
+  "Sorcerer",
   "Tanner",
   "Dr.Boom",
-  "Werewolf"];
+  "Werewolf",
+  "[Hidden]Prince",
+  "[Hidden]Lost",
+  "[Hidden]Idiot",
+  "[Hidden]Lycan",
+  "[Hidden]Dr.Boom"];
 
 var playerCount = 0;
 

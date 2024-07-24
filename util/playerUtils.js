@@ -154,7 +154,7 @@ exports.votePlayer = function votePlayer(req, res, next) {
         res.locals.alert = "Already voted";
         return next();
     }
-    db.run('UPDATE players SET votes=votes+1 WHERE id=? AND role!="Prince";',
+    db.run('UPDATE players SET votes=votes+1 WHERE id=? AND role!="Prince" AND role!="[Hidden]Prince";',
         [req.params.targetID],
         (err) => {
             if (err) return next(err);

@@ -73,7 +73,7 @@ exports.startGame = function startGame(req, res, next) {
                             console.log(err);
                             return next(err);
                         } 
-                        playerUtils.logPlayer(p.id, `My role: ${p.role}`);
+                        playerUtils.logPlayer(p.id, `My role: ${p.role.replace("[Hidden]", "")}`);
                         next();
                     });
             });

@@ -1,6 +1,7 @@
 var address = "localhost:3000";
 
-const roleList = ["Villager",
+const roleList = [
+  "Villager",
   "Seer",
   "Apprentice Seer",
   "The Count",
@@ -24,7 +25,8 @@ const roleList = ["Villager",
   "[Hidden]Lycan",
   "[Hidden]Boy Who Cried Wolf",
   "[Hidden]Clueless",
-  "[Hidden]Dr.Boom"];
+  "[Hidden]Dr.Boom"
+];
 
 var playerCount = 0;
 

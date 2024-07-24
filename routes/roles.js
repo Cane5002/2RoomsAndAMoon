@@ -18,7 +18,7 @@ router.put('/seer/:targetID', playerUtils.getPlayers, (req, res) => {
     console.log("Seering");
     let target = res.locals.players.find(p => p.id==req.params.targetID)
     let wwBool = false;
-    if (target) wwBool = (target.role=="Werewolf");
+    if (target) wwBool = (target.role=="Werewolf" || target.role.replace("[Hidden]", "")=="Lycan");
     playerUtils.logPlayer(res.locals.player.id, `${target.name} is ${wwBool ? "" : "not "} a Werewolf`);
 
     let apSeer = res.locals.players.find(p => p.role=="Apprentice Seer");
@@ -33,7 +33,7 @@ router.get('/count/:room', playerUtils.getPlayers, (req, res) => {
         return next();
     }
     console.log("Counting");
-    let count = res.locals.players.filter((p) => (p.role=="Werewolf" && p.alive && p.room==req.params.room)).length;
+    let count = res.locals.players.filter((p) => ((p.role=="Werewolf" || p.role.replace("[Hidden]", "")=="Lycan") && p.alive && p.room==req.params.room)).length;
     playerUtils.logPlayer(res.locals.player.id, `There are ${count} Werewolves`);
 
     if (res.locals.player.role=="Apprentice Seer") {

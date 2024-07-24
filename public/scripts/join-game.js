@@ -1,4 +1,4 @@
-var address = "localhost:3000";
+var address = "https://adder-clean-clam.ngrok-free.app:3000";
 
 document.addEventListener('DOMContentLoaded', function() {
     

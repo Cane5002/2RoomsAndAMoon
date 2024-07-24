@@ -309,11 +309,11 @@ function updatePower() {
     if (!player.canPower) return;
     switch(player.role) {
         case "Apprentice Seer":
-            let pBtn = document.createElement("button");
-            pBtn.textContent = "Count";
-            pBtn.setAttribute("title", "Count");
-            pBtn.setAttribute("class", "power");
-            pBtn.addEventListener('click', function() {
+            let apSeerBtn = document.createElement("button");
+            apSeerBtn.textContent = "Count";
+            apSeerBtn.setAttribute("title", "Count");
+            apSeerBtn.setAttribute("class", "power");
+            apSeerBtn.addEventListener('click', function() {
                 if(!player.canPower) return;
                 player.canPower = false;
                 count()
@@ -321,7 +321,22 @@ function updatePower() {
                     console.log("Counted");
                 });
             });
-            powers.appendChild(pBtn);
+            powers.appendChild(apSeerBtn);
+            break;
+        case "The Count":
+            let countBtn = document.createElement("button");
+            countBtn.textContent = "Count";
+            countBtn.setAttribute("title", "Count");
+            countBtn.setAttribute("class", "power");
+            countBtn.addEventListener('click', function() {
+                if(!player.canPower) return;
+                player.canPower = false;
+                count()
+                .then(() => {
+                    console.log("Counted");
+                });
+            });
+            powers.appendChild(countBtn);
             break;
     }
 }

@@ -57,8 +57,8 @@ exports.resolveAttacks = function resolveAttacks(req, res, next) {
     if (res.locals.game.phase!="Night") return next();
     console.log("Resolving Attacks");
 
-    db.run("UPDATE players SET log=json_insert(log, '$[#]', ?) WHERE attacks>?;",
-        ["You were attacked in the night", 0],
+    db.run('UPDATE players SET log=json_insert(log, "$[#]", ?) WHERE (attacks>? AND role!="Clueless" AND role!="[Hidden]Clueless") OR (role="[Hidden]Boy Who Cried Wolf" AND ?<3);',
+        ["You were attacked in the night", 0, res.locals.game.dayCnt],
         (err) => {
             if (err) {
                 console.log(err);

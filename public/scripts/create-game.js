@@ -3,11 +3,13 @@ var address = "localhost:3000";
 const roleList = ["Villager",
   "Seer",
   "Apprentice Seer",
+  "The Count",
   "Mason",
   "Bump",
   "Prince",
   "Lost",
   "Idiot",
+  "Clueless",
   "Beholder",
   "Minion",
   "Lycan",
@@ -20,6 +22,8 @@ const roleList = ["Villager",
   "[Hidden]Lost",
   "[Hidden]Idiot",
   "[Hidden]Lycan",
+  "[Hidden]Boy Who Cried Wolf",
+  "[Hidden]Clueless",
   "[Hidden]Dr.Boom"];
 
 var playerCount = 0;

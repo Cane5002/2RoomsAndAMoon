@@ -69,17 +69,6 @@ router.put('/vote/:targetID', playerUtils.getPlayer, playerUtils.votePlayer, (re
     res.status(201).send();
 })
 
-router.put('/setStatus/:targetID', playerUtils.setPlayerStatus, (req, res) => {
-    console.log(`Set status ${req.body.status}`);
-    res.status(201).send();
-})
-
-router.put('/clearStatus/:targetID', playerUtils.clearPlayerStatus, (req, res) => {
-    console.log(`Cleared status ${req.body.status}`);
-    res.status(201).send();
-})
-
-
 router.put('/pollV', playerUtils.getPlayer, gameUtils.pollV, (req, res) => {
     console.log("Voting");
     res.status(201).send();

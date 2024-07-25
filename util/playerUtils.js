@@ -155,18 +155,23 @@ exports.votePlayer = function votePlayer(req, res, next) {
         return next();
     }
     if (req.params.targetID==-1) {
-        db.run('UPDATE games SET nullVotes=json_replace(nullVotes, $[?], (nullVotes->$[?])+1) WHERE roomCode=?;',
-            [res.locals.player.room, res.locals.player.room, res.locals.game.roomCode],
+        console.log(`Voting to sleep in room ${res.locals.player.room}`);
+        console.log(`UPDATE games SET nullVotes=json_replace(nullVotes, '$[${res.locals.player.room-1}]', (nullVotes->'$[${res.locals.player.room-1}]')+1) WHERE roomCode=${res.locals.game.roomCode};`)
+        db.run("UPDATE games SET nullVotes=JSON_replace(nullVotes, '$[?]', JSON_extract(nullVotes,'$[?]')+1) WHERE roomCode=?;",
+            [res.locals.player.room-1, res.locals.player.room-1, res.locals.game.roomCode],
             (err) => {
                 if (err) return next(err);
+                console.log("Sucess");
             }
         )
     }
     else { 
+        console.log("Voting for player");
         db.run('UPDATE players SET votes=votes+1 WHERE id=? AND role!="Prince" AND role!="[Hidden]Prince";',
             [req.params.targetID],
             (err) => {
                 if (err) return next(err);
+                console.log("Sucess");
             }
         )
     }
@@ -184,10 +189,10 @@ const Statuses = new Map([
 ]);
 exports.setPlayerStatus = function setPlayerStatus(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
-    console.log("Setting Status");
+    console.log(`Setting Status ${req.body.status}:${Statuses.get(req.body.status)}`);
     
-    db.run("UPDATE players SET flags=flags|? WHERE id=?;",
-        [Statuses[req.body.status], req.params.targetID],
+    db.run("UPDATE players SET flags=(flags|?) WHERE id=?;",
+        [Statuses.get(req.body.status), req.params.targetID],
         (err) => {
             if (err) {
                 console.log(err);
@@ -203,7 +208,7 @@ exports.clearPlayerStatus = function setPlayerStatus(req, res, next) {
     console.log("Clearing Status");
     
     db.run("UPDATE players SET flags=flags&(~?) WHERE id=?;",
-        [Statuses[req.body.status], req.params.targetID],
+        [Statuses.get(req.body.status), req.params.targetID],
         (err) => {
             if (err) {
                 console.log(err);

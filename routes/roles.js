@@ -68,4 +68,14 @@ router.put('/bump/:targetID', (req, res) => {
     res.status(201).send();
 })
 
+router.put('/setStatus/:targetID', playerUtils.setPlayerStatus, (req, res) => {
+    console.log(`Set status ${req.body.status}`);
+    res.status(201).send();
+})
+
+router.put('/clearStatus/:targetID', playerUtils.clearPlayerStatus, (req, res) => {
+    console.log(`Cleared status ${req.body.status}`);
+    res.status(201).send();
+})
+
 module.exports = router;

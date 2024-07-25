@@ -429,27 +429,23 @@ async function vote(targetID) {
 }
 async function setStatus(targetID, status) {
     console.log("Status!");
-    response = fetch(`/${roomCode}/setStatus/${targetID}`, {
+    response = fetch(`/${roomCode}/role/setStatus/${targetID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: {
-            status: status
-        }
+        body: JSON.stringify({ status: status })
     });
     return response;
 }
 async function clearStatus(targetID, status) {
     console.log("No Status!");
-    response = fetch(`/${roomCode}/clearStatus/${targetID}`, {
+    response = fetch(`/${roomCode}/role/clearStatus/${targetID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: {
-            status: status
-        }
+        body: JSON.stringify({ status: status })
     });
     return response;
 }

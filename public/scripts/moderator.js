@@ -120,6 +120,7 @@ function removeChildNodes(parent) {
 function updateGame(game_) {
     game = game_;
     updateDayCnt();
+    updatePoll();
 }
 
 const bg = document.getElementById("bg");
@@ -135,7 +136,13 @@ function updateDayCnt() {
     phaseDiv.textContent = game.phase;
 }
 
-
+const poll = document.getElementById("pollBar");
+function updatePoll() {
+    let tot = game.vVotes + game.wVotes;
+    if (tot==0) return;
+    let per = game.vVotes / tot * 100;
+    poll.setAttribute("style", `width: ${per}%;`);
+}
 
 const wwCnt = document.getElementById('wwCnt');
 function updateWWCnt() {

@@ -156,9 +156,10 @@ exports.votePlayer = function votePlayer(req, res, next) {
     }
     if (req.params.targetID==-1) {
         console.log(`Voting to sleep in room ${res.locals.player.room}`);
-        console.log(`UPDATE games SET nullVotes=json_replace(nullVotes, '$[${res.locals.player.room-1}]', (nullVotes->'$[${res.locals.player.room-1}]')+1) WHERE roomCode=${res.locals.game.roomCode};`)
-        db.run("UPDATE games SET nullVotes=JSON_replace(nullVotes, '$[?]', JSON_extract(nullVotes,'$[?]')+1) WHERE roomCode=?;",
-            [res.locals.player.room-1, res.locals.player.room-1, res.locals.game.roomCode],
+        let query = (`UPDATE games SET nullVotes=JSON_replace(nullVotes, '$[${res.locals.player.room-1}]', JSON_extract(nullVotes,'$[${res.locals.player.room-1}]')+1) WHERE roomCode='${res.locals.game.roomCode}';`)
+        // db.run("UPDATE games SET nullVotes=JSON_replace(nullVotes, '$[?]', JSON_extract(nullVotes,'$[?]')+1) WHERE roomCode=?;",
+        db.run(query,
+            // [res.locals.player.room-1, res.locals.player.room-1, res.locals.game.roomCode],
             (err) => {
                 if (err) return next(err);
                 console.log("Sucess");

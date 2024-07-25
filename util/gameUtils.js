@@ -74,7 +74,7 @@ exports.startGame = function startGame(req, res, next) {
                             console.log(err);
                             return next(err);
                         } 
-                        if (p.role.includes("[Hidden]")) playerUtils.logPlayer(p.id, `My role: Villager}`);
+                        if (p.role.includes("[Hidden]")) playerUtils.logPlayer(p.id, `My role: Villager`);
                         else playerUtils.logPlayer(p.id, `My role: ${p.role}`);
                         next();
                     });

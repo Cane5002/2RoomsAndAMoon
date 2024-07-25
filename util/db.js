@@ -34,6 +34,7 @@ db.serialize(function() {
         canSus INTEGER NOT NULL, \
         attacks INTEGER NOT NULL, \
         votes INTEGER NOT NULL, \
+        voteTarget TEXT, \
         susses INTEGER NOT NULL, \
         destination INTEGER, \
         flags INTEGER NOT NULL \

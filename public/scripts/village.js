@@ -55,28 +55,27 @@ function addPlayer(player_) {
     let playerDiv = document.createElement('div');
     playerDiv.setAttribute("class", "player");
 
-    if (player.alive) {
-        let susBtn = document.createElement('button');
-        susBtn.setAttribute("class","img");
-        addImage(susBtn, "susIcon", "https://static-00.iconduck.com/assets.00/thinking-face-emoji-1935x2048-ul7zt5ry.png");
-        let susTxt = document.createElement('div');
-        susTxt.setAttribute("class", "susTxt");
-        susTxt.textContent = player_.susses;
-        if (game.phase=="Night") susTxt.setAttribute("style","opacity:0;");
-        susBtn.addEventListener('click', function() {
-            if (game.phase!="Night" || player.canSus==0) return;
-            player.canSus--;
-            sus(player_.id)
-            .then(() => {
-                console.log("Sussed");
-            })
+    let susBtn = document.createElement('button');
+    susBtn.setAttribute("class","img");
+    addImage(susBtn, "susIcon", "https://static-00.iconduck.com/assets.00/thinking-face-emoji-1935x2048-ul7zt5ry.png");
+    let susTxt = document.createElement('div');
+    susTxt.setAttribute("class", "susTxt");
+    susTxt.textContent = player_.susses;
+    if (game.phase=="Night") susTxt.setAttribute("style","opacity:0;");
+    susBtn.addEventListener('click', function() {
+        if (game.phase!="Night" || player.canSus==0 || !player.alive) return;
+        player.canSus--;
+        sus(player_.id)
+        .then(() => {
+            console.log("Sussed");
         })
-        susBtn.appendChild(susTxt);
-        playerDiv.appendChild(susBtn);
-    }
+    })
+    susBtn.appendChild(susTxt);
+    playerDiv.appendChild(susBtn);
 
     let nameDiv = document.createElement('div');
-    nameDiv.textContent = `${player_.name}`;
+    if (game.phase == "Movement") nameDiv.textContent = `${player_.name} voted ${player_.voteTarget}`;
+    else nameDiv.textContent = `${player_.name}`;
     playerDiv.appendChild(nameDiv);
 
     if (player.alive) {
@@ -91,8 +90,8 @@ function addPlayer(player_) {
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;
-                    if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id);
-                    else vote(player_.id)
+                    if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player_.name);
+                    else vote(player_.id, player_.name)
                     .then(() => {
                         console.log("Voted");
                     });
@@ -352,14 +351,14 @@ function updatePower() {
         case "Voting":
             if (!player.canVote) break;
             let noVote = document.createElement("button");
-            noVote.textContent = "Nobody";
+            noVote.textContent = "Vote for Sleep";
             noVote.setAttribute("title", "Vote");
             noVote.setAttribute("class", "power");
             noVote.addEventListener('click', function() {
                 if(!player.canVote) return;
                 player.canVote = false;
-                if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id);
-                else vote(-1)
+                if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player_.name);
+                else vote(-1, "Sleep")
                 .then(() => {
                     console.log("Voted");
                 });
@@ -422,13 +421,14 @@ async function sus(targetID) {
     })
     return response;
 }
-async function vote(targetID) {
+async function vote(targetID, targetName) {
     console.log("Vote!");
     response = fetch(`/${roomCode}/vote/${targetID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
-        }
+        },
+        body: JSON.stringify({ targetName: targetName })
     });
     return response;
 }

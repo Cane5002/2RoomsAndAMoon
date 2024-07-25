@@ -13,6 +13,7 @@ class Player {
         this.canSus = player.canSus;
         this.attacks = player.attacks;
         this.votes = player.votes;
+        this.voteTarget = player.voteTarget;
         this.susses = player.susses;
         this.destination = player.destination;
         this.lost = (player.flags & 1) > 0;

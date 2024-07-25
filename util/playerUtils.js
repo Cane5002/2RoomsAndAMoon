@@ -55,8 +55,8 @@ exports.addPlayer = function addPlayer(req, res, next) {
         res.locals.alert = "Room full";
         return next();
     }
-    db.run("INSERT INTO players (sessionID, roomCode, name, room, log, alive, canVote, canPower, canSus, attacks, votes, susses, destination, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-        [req.sessionID, req.body.roomCode, req.body.name, 1, '[]', true, true, 1, 3, 0, 0, 0, -1, 0],
+    db.run("INSERT INTO players (sessionID, roomCode, name, room, log, alive, canVote, canPower, canSus, attacks, votes, voteTarget, susses, destination, flags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+        [req.sessionID, req.body.roomCode, req.body.name, 1, '[]', true, true, 1, 3, 0, 0, "None", 0, -1, 0],
         (err) => {
             if (err) return next(err);
             next();
@@ -176,8 +176,8 @@ exports.votePlayer = function votePlayer(req, res, next) {
             }
         )
     }
-    db.run("UPDATE players SET canVote=? WHERE roomCode=? AND sessionID=?;",
-        [false, res.locals.game.roomCode, req.sessionID],
+    db.run("UPDATE players SET canVote=?, voteTarget=? WHERE roomCode=? AND sessionID=?;",
+        [false, req.body.targetName, res.locals.game.roomCode, req.sessionID],
         (err) => {
             if (err) return next(err);
             next();
@@ -266,8 +266,8 @@ exports.resetPlayers = function resetPlayers(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
     if (res.locals.game.phase!="Discussion") return next();
     console.log("Resetting Players");
-    db.run("UPDATE players SET attacks=?, votes=?, canVote=? WHERE roomCode=? AND alive=?;",
-        [0, 0, true, res.locals.game.roomCode, true],
+    db.run("UPDATE players SET attacks=?, votes=?, canVote=?, voteTarget=? WHERE roomCode=? AND alive=?;",
+        [0, 0, true, "None", res.locals.game.roomCode, true],
         (err) => {
             if (err) {
                 console.log(err);

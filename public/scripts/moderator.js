@@ -138,17 +138,21 @@ function updateDayCnt() {
 
 const poll = document.getElementById("pollBar");
 function updatePoll() {
+    console.log(poll)
     let tot = game.vVotes + game.wVotes;
     if (tot==0) return;
     let per = game.vVotes / tot * 100;
     poll.setAttribute("style", `width: ${per}%;`);
 }
 
-const wwCnt = document.getElementById('wwCnt');
+const wwCnt = document.getElementById("wwCnt");
 function updateWWCnt() {
+    console.log("Updating wwCnt");
+    console.log(wwCnt);
     let alive = players.filter((p) => p.alive);
-    let wwCnt = alive.filter((p) => p.role == "Werewolf").length;
-    wwCnt.textContent = `${wwCnt} Werewolves | ${alive.length} Villagers`;
+    let count = alive.filter((p) => p.role == "Werewolf").length;
+    console.log(`${count} Werewolves | ${alive.length} Villagers`)
+    wwCnt.textContent = `${count} Werewolves | ${alive.length} Villagers`;
 }
 
 let endGameBtn = document.getElementById('endBtn');

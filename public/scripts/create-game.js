@@ -18,6 +18,7 @@ const roleList = [
   "Lycan",
   "Sorcerer",
   "Tanner",
+  "Hunter",
   "Dr.Boom",
   "Twister",
   "Werewolf",

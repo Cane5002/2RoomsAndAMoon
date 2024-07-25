@@ -69,7 +69,7 @@ exports.addPlayer = function addPlayer(req, res, next) {
         return false;
     }
     
-    exports.initPlayerData = function initPlayerData(players, roles) {
+exports.initPlayerData = function initPlayerData(players, roles) {
     let shuffledRoles = shuffle(roles)
     
     players.forEach((p, i) => {
@@ -241,15 +241,23 @@ exports.movePlayers = function movePlayer(req, res, next) {
 exports.shufflePlayers = function movePlayer(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
     console.log("Shuffling players");
-    db.run("Update players Set room=(abs(Random())%? + 1) WHERE roomCode=?",
-        [res.locals.game.roomCnt, res.locals.game.roomCode],
+    let shuffledPlayers = shuffle(res.locals.players)
+    
+    console.log(shuffledPlayers);
+    for (let i = 0; i < shuffledPlayers.length; i++) {
+        console.log(`${shuffledPlayers[i]} to ${(i%res.locals.game.roomCnt)+1}`)
+        setRoom(shuffledPlayers[i].id, (i%res.locals.game.roomCnt)+1);
+    }
+    console.log("Success");
+    next();
+}
+function setRoom(pid, room) {
+    db.run("Update players Set room=? WHERE id=?",
+        [room, pid],
         (err) => {
             if (err) {
                 console.log(err);
-                return next(err);
             } 
-            console.log("Success");
-            next();
         }
     )
 }

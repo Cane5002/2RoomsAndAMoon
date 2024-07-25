@@ -250,7 +250,7 @@ exports.shufflePlayers = function movePlayer(req, res, next) {
                 
 exports.resetPlayers = function resetPlayers(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
-    if (res.locals.game.phase!="Movement") return next();
+    if (res.locals.game.phase!="Discussion") return next();
     console.log("Resetting Players");
     db.run("UPDATE players SET attacks=?, votes=?, canVote=?, canSus=? WHERE roomCode=? AND alive=?;",
         [0, 0, true, 3, res.locals.game.roomCode, true],

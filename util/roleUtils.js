@@ -4,7 +4,7 @@ const playerUtils = require('./playerUtils.js');
 const dailyPowerRoles = ["Werewolf", "Seer", "Apprentice Seer", "Bump", "Siren", "Sorcerer"]
 exports.resetPower = function resetPower(req, res, next) {
     if (!res.locals.game) return next(new Error("game doesn't exist"));
-    if (res.locals.game.phase!="Movement") return next();
+    if (res.locals.game.phase!="Discussion") return next();
     console.log("Refreshing Powers");
     let roleQuery = `role="${dailyPowerRoles[0]}"`
     for (let i = 1; i < dailyPowerRoles.length; i++ ) {

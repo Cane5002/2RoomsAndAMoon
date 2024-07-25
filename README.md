@@ -1,19 +1,9 @@
-![2RoomsAndAMoonLogo](https://github.com/Cane5002/2RoomsAndAMoon/blob/main/public/resources/2RoomsAndAMoonLogo.png)
-## 2 Rooms and a Moon is an adaptation of the popular social deduction game Werewolf that introduces the ability to play with multiple villages
-You can view the current build at [werewolfx.com](http://werewolfx.com)
-
-## Rules
-There are four phases of gameplay: Night, Discussion, Voting, and the new Movement phase
-
-### 1. Night
-At night, everyone can assign Suspicion points to players in their room who they find suspicious.
-At the same time, secret roles will conduct night time actions.
-
-### 2. Discussion
-The results of the night are revealed and players discuss what happened
-
-### 3. Voting
-Players vote for who they think is the werewolf. The player with the most votes will be killed.
-
-### 4. Movement!
-Players simultaneously decide which village to move to. Players can only interact with other players in the same village. 
+For setting up EC2 refer to https://jonathans199.medium.com/how-to-deploy-node-express-api-to-ec2-instance-in-aws-bc038a401156
+# How to run:
+0. Verify you have express and node installed
+1. git clone -b v1.4 https://github.com/Cane5002/2RoomsAndAMoon.git
+2. cd 2RoomsAndAMoon
+3. npm install
+4. set desired port in ./bin/www.js
+5. npm start <br>
+5.5 pm2 start ./bin/www.js (if you want to run even when cli is not open)

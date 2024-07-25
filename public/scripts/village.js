@@ -98,7 +98,7 @@ function addPlayer(player_) {
                     });
                 });
                 playerDiv.appendChild(voteBtn);
-                break;
+                break;                
             case "Night":
                 switch(player.role) {
                     case "Seer":
@@ -308,37 +308,58 @@ function updatePlayer(player_) {
 const powers = document.getElementById("powers");
 function updatePower() {
     removeChildNodes(powers);
-    if (!player.canPower) return;
-    switch(player.role) {
-        case "Apprentice Seer":
-            let apSeerBtn = document.createElement("button");
-            apSeerBtn.textContent = "Count";
-            apSeerBtn.setAttribute("title", "Count");
-            apSeerBtn.setAttribute("class", "power");
-            apSeerBtn.addEventListener('click', function() {
-                if(!player.canPower) return;
-                player.canPower = false;
-                count()
-                .then(() => {
-                    console.log("Counted");
-                });
-            });
-            powers.appendChild(apSeerBtn);
+    switch(game.phase) {
+        case "Night":
+            if (!player.canPower) return;
+            switch(player.role) {
+                case "Apprentice Seer":
+                    let apSeerBtn = document.createElement("button");
+                    apSeerBtn.textContent = "Count";
+                    apSeerBtn.setAttribute("title", "Count");
+                    apSeerBtn.setAttribute("class", "power");
+                    apSeerBtn.addEventListener('click', function() {
+                        if(!player.canPower) return;
+                        player.canPower = false;
+                        count()
+                        .then(() => {
+                            console.log("Counted");
+                        });
+                    });
+                    powers.appendChild(apSeerBtn);
+                    break;
+                case "The Count":
+                    let countBtn = document.createElement("button");
+                    countBtn.textContent = "Count";
+                    countBtn.setAttribute("title", "Count");
+                    countBtn.setAttribute("class", "power");
+                    countBtn.addEventListener('click', function() {
+                        if(!player.canPower) return;
+                        player.canPower = false;
+                        count()
+                        .then(() => {
+                            console.log("Counted");
+                        });
+                    });
+                    powers.appendChild(countBtn);
+                    break;
+            }
             break;
-        case "The Count":
-            let countBtn = document.createElement("button");
-            countBtn.textContent = "Count";
-            countBtn.setAttribute("title", "Count");
-            countBtn.setAttribute("class", "power");
-            countBtn.addEventListener('click', function() {
-                if(!player.canPower) return;
-                player.canPower = false;
-                count()
+        case "Voting":
+            if (!player.canVote) break;
+            let noVote = document.createElement("button");
+            noVote.textContent = "Nobody";
+            noVote.setAttribute("title", "Vote");
+            noVote.setAttribute("class", "power");
+            noVote.addEventListener('click', function() {
+                if(!player.canVote) return;
+                player.canVote = false;
+                if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id);
+                else vote(-1)
                 .then(() => {
-                    console.log("Counted");
+                    console.log("Voted");
                 });
             });
-            powers.appendChild(countBtn);
+            powers.appendChild(noVote);
             break;
     }
 }

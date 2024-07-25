@@ -9,7 +9,7 @@ class Game {
         this.started = (game.started == 1 ? true : false);
         this.dayCnt = Math.floor((game.phase+2)/4);
         this.phase = PHASES[game.phase%4];
-        this.nullVotes = game.nullVotes;
+        this.nullVotes = JSON.parse(game.nullVotes);
         this.vVotes = game.vVotes;
         this.wVotes = game.wVotes;
     }

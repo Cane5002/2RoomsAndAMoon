@@ -265,6 +265,15 @@ button.submit:disabled:hover {
     align-items: center;
 }
 
+.deadPlayer {
+    color: #ff0000;
+    font-family: 'Lexend', sans-serif;
+    font-size: 30px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
 #log {
     background-color: rgba(0,0,0,0.25);
     border-radius: 25px;

@@ -15,7 +15,7 @@ db.serialize(function() {
         roles TEXT, \
         started INTEGER, \
         phase INTEGER, \
-        nullVotes INTEGER, \
+        nullVotes TEXT, \
         vVotes INTEGER, \
         wVotes INTEGER \
         );")

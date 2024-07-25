@@ -48,7 +48,7 @@ function updatePlayers(players_) {
     }
     players = players_;
     players.forEach((p) => {
-        if (p.alive) addPlayer(villages[p.room-1], p);
+        addPlayer(villages[p.room-1], p);
     })
     
     updateWWCnt();
@@ -57,9 +57,15 @@ function updatePlayers(players_) {
 function createVillage(i) {
     let village = document.createElement('div');
     village.setAttribute("class","village");
+
     let h2 = document.createElement('h2');
     h2.textContent = `Village ${i}`;
     village.appendChild(h2);
+
+    let h3 = document.createElement('h3');
+    h3.textContent = `${game.nullVotes[i-1]} votes for sleep`;
+    village.appendChild(h3);
+
     let pList = document.createElement('div');
     pList.setAttribute("class", "playerList");
     pList.setAttribute("id", `playerList${i}`);
@@ -70,7 +76,8 @@ function createVillage(i) {
 
 function addPlayer(pList, player_) {
     let playerDiv = document.createElement('div');
-    playerDiv.setAttribute("class", "player");
+    if (player_.alive) playerDiv.setAttribute("class", "player");
+    else playerDiv.setAttribute("class", "deadPlayer");
     playerDiv.textContent = `${player_.name}(${player_.role}): ${player_.votes} votes | ${player_.attacks} attacks` 
     
     let removePlayerBtn = document.createElement('button');

@@ -19,8 +19,9 @@ exports.getGame = function getGame(req, res, next) {
 }
     
 exports.addGame = function addGame(req, res, next) {
+
     db.run("INSERT INTO games (roomCode, moderatorSID, roomCnt, playerCnt, roles, started, phase, nullVotes, vVotes, wVotes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
-        [req.body.roomCode, req.sessionID, req.body.roomCnt, req.body.playerCnt, JSON.stringify(req.body.roles), 0, 0, 0, 0, 0],
+        [req.body.roomCode, req.sessionID, req.body.roomCnt, req.body.playerCnt, JSON.stringify(req.body.roles), 0, 0, JSON.stringify(new Array(req.body.roomCnt).fill(0)), 0, 0],
         (err) => {
             if (err) {
                 if (err.errno == 19) {

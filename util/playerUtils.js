@@ -154,12 +154,22 @@ exports.votePlayer = function votePlayer(req, res, next) {
         res.locals.alert = "Already voted";
         return next();
     }
-    db.run('UPDATE players SET votes=votes+1 WHERE id=? AND role!="Prince" AND role!="[Hidden]Prince";',
-        [req.params.targetID],
-        (err) => {
-            if (err) return next(err);
-        }
-    )
+    if (req.params.targetID==-1) {
+        db.run('UPDATE games SET nullVotes=json_replace(nullVotes, $[?], (nullVotes->$[?])+1) WHERE roomCode=?;',
+            [res.locals.player.room, res.locals.player.room, res.locals.game.roomCode],
+            (err) => {
+                if (err) return next(err);
+            }
+        )
+    }
+    else { 
+        db.run('UPDATE players SET votes=votes+1 WHERE id=? AND role!="Prince" AND role!="[Hidden]Prince";',
+            [req.params.targetID],
+            (err) => {
+                if (err) return next(err);
+            }
+        )
+    }
     db.run("UPDATE players SET canVote=? WHERE roomCode=? AND sessionID=?;",
         [false, res.locals.game.roomCode, req.sessionID],
         (err) => {
@@ -244,6 +254,16 @@ exports.resetPlayers = function resetPlayers(req, res, next) {
     console.log("Resetting Players");
     db.run("UPDATE players SET attacks=?, votes=?, canVote=?, canSus=? WHERE roomCode=? AND alive=?;",
         [0, 0, true, 3, res.locals.game.roomCode, true],
+        (err) => {
+            if (err) {
+                console.log(err);
+                return next(err);
+            } 
+            console.log("Success");
+        }
+    )
+    db.run("UPDATE games SET nullVotes=? WHERE roomCode=?",
+        [JSON.stringify(new Array(res.locals.game.roomCnt).fill(0)), res.locals.game.roomCode],
         (err) => {
             if (err) {
                 console.log(err);

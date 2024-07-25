@@ -78,7 +78,7 @@ function addPlayer(pList, player_) {
     let playerDiv = document.createElement('div');
     if (player_.alive) playerDiv.setAttribute("class", "player");
     else playerDiv.setAttribute("class", "deadPlayer");
-    playerDiv.textContent = `${player_.name}(${player_.role}): ${player_.votes} votes | ${player_.attacks} attacks` 
+    playerDiv.textContent = `(${player_.susses} sus) ${player_.name}(${player_.role}): ${player_.votes} votes | ${player_.attacks} attacks` 
     
     let removePlayerBtn = document.createElement('button');
     removePlayerBtn.textContent = "kill";

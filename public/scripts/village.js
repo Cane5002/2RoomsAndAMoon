@@ -55,23 +55,25 @@ function addPlayer(player_) {
     let playerDiv = document.createElement('div');
     playerDiv.setAttribute("class", "player");
 
-    let susBtn = document.createElement('button');
-    susBtn.setAttribute("class","img");
-    addImage(susBtn, "susIcon", "https://static-00.iconduck.com/assets.00/thinking-face-emoji-1935x2048-ul7zt5ry.png");
-    let susTxt = document.createElement('div');
-    susTxt.setAttribute("class", "susTxt");
-    susTxt.textContent = player_.susses;
-    if (game.phase=="Night") susTxt.setAttribute("style","opacity:0;");
-    susBtn.addEventListener('click', function() {
-        if (game.phase!="Night" || player.canSus==0) return;
-        player.canSus--;
-        sus(player_.id)
-        .then(() => {
-            console.log("Sussed");
+    if (player.alive) {
+        let susBtn = document.createElement('button');
+        susBtn.setAttribute("class","img");
+        addImage(susBtn, "susIcon", "https://static-00.iconduck.com/assets.00/thinking-face-emoji-1935x2048-ul7zt5ry.png");
+        let susTxt = document.createElement('div');
+        susTxt.setAttribute("class", "susTxt");
+        susTxt.textContent = player_.susses;
+        if (game.phase=="Night") susTxt.setAttribute("style","opacity:0;");
+        susBtn.addEventListener('click', function() {
+            if (game.phase!="Night" || player.canSus==0) return;
+            player.canSus--;
+            sus(player_.id)
+            .then(() => {
+                console.log("Sussed");
+            })
         })
-    })
-    susBtn.appendChild(susTxt);
-    playerDiv.appendChild(susBtn);
+        susBtn.appendChild(susTxt);
+        playerDiv.appendChild(susBtn);
+    }
 
     let nameDiv = document.createElement('div');
     nameDiv.textContent = `${player_.name}`;
@@ -85,7 +87,7 @@ function addPlayer(player_) {
                 let voteBtn = document.createElement('button');
                 voteBtn.setAttribute("class", "img");
                 voteBtn.setAttribute("title", "Vote");
-                addImage(voteBtn, "voteBtn", "http://werewolfx.com/resources/voteicon.png");
+                addImage(voteBtn, "voteBtn", "http://werewolfx.com/resources/VoteIcon.png");
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;

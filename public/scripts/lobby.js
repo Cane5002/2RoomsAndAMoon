@@ -1,6 +1,10 @@
 const url = window.location.href;
 if (url.lastIndexOf('/')==(url.length-1)) url=url.substring(0,url.length-1);
 const roomCode = url.substring(url.lastIndexOf('/')+1, url.length);
+const script = document.getElementById('lobbyScript');
+const isModerator = (script.getAttribute('moderator')=="true" ? true : false);
+
+console.log(isModerator);
 
 //Change to server URL
 const lobbyStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/lobby`);
@@ -30,15 +34,17 @@ function addPlayer(player) {
     let playerDiv = document.createElement('div');
     playerDiv.setAttribute("class","player");
     playerDiv.textContent = player.name;
-    let removePlayerBtn = document.createElement('button');
-    removePlayerBtn.setAttribute("style", "margin-left: 5px;");
-    removePlayerBtn.textContent = "-";
-    removePlayerBtn.addEventListener('click', function() {
-        removePlayer(player.id).then(() => {
-            console.log("removed player");
+    if (isModerator) {
+        let removePlayerBtn = document.createElement('button');
+        removePlayerBtn.setAttribute("style", "margin-left: 5px;");
+        removePlayerBtn.textContent = "-";
+        removePlayerBtn.addEventListener('click', function() {
+            removePlayer(player.id).then(() => {
+                console.log("removed player");
+            });
         });
-    });
-    playerDiv.appendChild(removePlayerBtn);
+        playerDiv.appendChild(removePlayerBtn);
+    }
     playerList.appendChild(playerDiv);
 }
 
@@ -58,14 +64,23 @@ function removeChildNodes(parent) {
     }
 }
 
-const startGameBtn = document.getElementById('startGameBtn');
-startGameBtn.addEventListener('click', function() {
-    console.log('Start Game');
-    startGame().then(() => {
-        console.log("go to village")
-        window.location.href = `${roomCode}/village`;
+const startGameDiv = document.getElementById('startGame');
+var startGameBtn;
+if (isModerator) {
+    startGameBtn = document.createElement('button');
+    startGameBtn.textContent="Start Game";
+    startGameBtn.setAttribute("class", "submit");
+    startGameBtn.setAttribute("style", "margin-top: 0px;");
+    startGameBtn.setAttribute("disabled", "true");
+    startGameBtn.addEventListener('click', function() {
+        console.log('Start Game');
+        startGame().then(() => {
+            console.log("go to village")
+            window.location.href = `${roomCode}/village`;
+        })
     })
-})
+    startGameDiv.appendChild(startGameBtn);
+}
 
 async function startGame() {
     let response = await fetch(`/${roomCode}/start`, {
@@ -82,6 +97,6 @@ const currentPlayerCntr = document.getElementById('currentPlayerCnt');
 function setPlayerCnt(cnt) {
     currentPlayerCntr.textContent = cnt;
     let maxPlayerCnt = parseInt(document.getElementById('maxPlayerCnt').textContent)
-    if (cnt==maxPlayerCnt) startGameBtn.disabled = false;
+    if (cnt==maxPlayerCnt && isModerator && startGameBtn) startGameBtn.disabled = false;
     else true;
 }

@@ -5,13 +5,13 @@ var playerUtils = require('../util/playerUtils');
 var roleUtils = require('../util/roleUtils.js');
 var modUtils = require('../util/moderatorUtils');
 
-router.get('/', (req, res) => {
+router.get('/', modUtils.isModerator, (req, res) => {
     if (res.locals.game) {
         if (res.locals.game.started) {
             res.redirect(`/${res.locals.game.roomCode}/village`);
         }
         else {
-            res.render('lobby', { game: res.locals.game });
+            res.render('lobby', { game: res.locals.game, isModerator: res.locals.isModerator });
         }
     }
     else res.redirect('/join');

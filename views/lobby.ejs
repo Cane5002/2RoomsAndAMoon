@@ -21,8 +21,9 @@
         <div id="players" class="playerList" style="padding-left: 10px; min-height: auto;"></div>
     </div><br/>
     <div id="startGame" class="column">
-        <button id="startGameBtn" class="submit" style="margin-top: 0px;" disabled="true">Start Game</button>
+        <!-- <button id="startGameBtn" class="submit" style="margin-top: 0px;" disabled="true">Start Game</button> -->
     </div>
-    <script src="https://adder-clean-clam.ngrok-free.app/scripts/lobby.js"></script>
+    <script id="lobbyScript" src="https://adder-clean-clam.ngrok-free.app/scripts/lobby.js"
+    moderator="<%=locals.isModerator%>"></script>
 </body>
 </html>

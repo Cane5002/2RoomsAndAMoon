@@ -1,1 +1,1 @@
-ngrok http --domain=https://adder-clean-clam.ngrok-free.app 3000
+ngrok http --domain=http://werewolfx.com 3000

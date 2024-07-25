@@ -7,7 +7,7 @@ const isModerator = (script.getAttribute('moderator')=="true" ? true : false);
 console.log(isModerator);
 
 //Change to server URL
-const lobbyStream = new EventSource(`https://adder-clean-clam.ngrok-free.app/${roomCode}/stream/lobby`);
+const lobbyStream = new EventSource(`http://werewolfx.com/${roomCode}/stream/lobby`);
 
 lobbyStream.onmessage = function (ev) {
     let data = JSON.parse(ev.data)

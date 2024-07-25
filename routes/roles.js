@@ -65,7 +65,7 @@ router.put('/bump/:targetID', (req, res) => {
         return next();
     }
     console.log("Bumping");
-    playerUtils.logPlayer(req.params.target, "I was bumped :o");
+    playerUtils.logPlayer(req.params.targetID, "I was bumped :o");
     res.status(201).send();
 })
 

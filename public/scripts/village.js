@@ -136,6 +136,11 @@ function addPlayer(player_) {
                             addImage(playerDiv, "masonIcon", "https://adder-clean-clam.ngrok-free.app/resources/MasonIcon.png");
                         }
                         break;
+                    case "Illuminati":
+                        if (player_.role=="Illuminati") {
+                            addImage(playerDiv, "illuminatiIcon", "https://adder-clean-clam.ngrok-free.app/resources/IlluminatiIcon.png");
+                        }
+                        break;
                     case "Bump":
                         if(player.canPower==0) break;
                         let bumpBtn = document.createElement('button');

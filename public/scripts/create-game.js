@@ -7,6 +7,7 @@ const roleList = [
   "Apprentice Seer",
   "The Count",
   "Mason",
+  "Illuminati",
   "Bump",
   "Prince",
   "Lost",

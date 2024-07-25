@@ -90,7 +90,7 @@ function addPlayer(player_) {
                 voteBtn.addEventListener('click', function() {
                     if(!player.canVote) return;
                     player.canVote = false;
-                    if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player_.name);
+                    if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player.name);
                     else vote(player_.id, player_.name)
                     .then(() => {
                         console.log("Voted");
@@ -357,7 +357,7 @@ function updatePower() {
             noVote.addEventListener('click', function() {
                 if(!player.canVote) return;
                 player.canVote = false;
-                if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player_.name);
+                if (player.role.replace("[Hidden]", "")=="Idiot") vote(player.id, player.name);
                 else vote(-1, "Sleep")
                 .then(() => {
                     console.log("Voted");

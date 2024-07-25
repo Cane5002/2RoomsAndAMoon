@@ -20,6 +20,7 @@ const roleList = [
   "Tanner",
   "Hunter",
   "Dr.Boom",
+  "Evil Boom",
   "Twister",
   "Werewolf",
   "[Hidden]Prince",

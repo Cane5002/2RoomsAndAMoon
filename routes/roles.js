@@ -21,8 +21,9 @@ router.put('/seer/:targetID', playerUtils.getPlayers, (req, res) => {
     if (target) wwBool = (target.role=="Werewolf" || target.role.replace("[Hidden]", "")=="Lycan");
     playerUtils.logPlayer(res.locals.player.id, `${target.name} is ${wwBool ? "" : "not "} a Werewolf`);
 
-    let apSeer = res.locals.players.find(p => p.role=="Apprentice Seer");
-    if (apSeer && res.locals.player.room == apSeer.room) playerUtils.logPlayer(apSeer.id, `${target.name} is ${wwBool ? "" : "not "} a Werewolf`);
+    // Notify Ap Seer
+    // let apSeer = res.locals.players.find(p => p.role=="Apprentice Seer");
+    // if (apSeer && res.locals.player.room == apSeer.room) playerUtils.logPlayer(apSeer.id, `${target.name} is ${wwBool ? "" : "not "} a Werewolf`);
 
     res.status(201).send();
 })
@@ -36,10 +37,10 @@ router.get('/count/:room', playerUtils.getPlayers, (req, res) => {
     let count = res.locals.players.filter((p) => ((p.role=="Werewolf" || p.role.replace("[Hidden]", "")=="Lycan") && p.alive && p.room==req.params.room)).length;
     playerUtils.logPlayer(res.locals.player.id, `There are ${count} Werewolves`);
 
-    if (res.locals.player.role=="Apprentice Seer") {
-        let seer = res.locals.players.find(p => p.role=="Seer");
-        if (seer && res.locals.player.room == seer.room) playerUtils.logPlayer(seer.id, `There are ${count} Werewolves`);
-    }
+    // if (res.locals.player.role=="Apprentice Seer") { // Notify Seer
+    //     let seer = res.locals.players.find(p => p.role=="Seer");
+    //     if (seer && res.locals.player.room == seer.room) playerUtils.logPlayer(seer.id, `There are ${count} Werewolves`);
+    // }
 
     res.status(201).send();
 })

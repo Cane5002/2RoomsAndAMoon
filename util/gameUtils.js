@@ -79,6 +79,21 @@ exports.startGame = function startGame(req, res, next) {
                         next();
                     });
             });
+
+            console.log(res.locals.game.roles);
+            let log = "Roles:\n"
+            let cur = ""
+            let cnt = 0;
+            res.locals.game.roles.forEach((r) => {
+                if(r!=cur) {
+                    if (cnt!=0) log += `${cnt}x ${cur}\n`
+                    cur = r;
+                    cnt =1;
+                }
+                else cnt++;
+            })
+            if (cnt!=0) log += `${cnt}x ${cur}\n`
+            playerUtils.logRoom(res.locals.game.roomCode, log)
         })
 
 }

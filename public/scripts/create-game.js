@@ -29,6 +29,7 @@ const roleList = [
   "[Hidden]Lycan",
   "[Hidden]Boy Who Cried Wolf",
   "[Hidden]Clueless",
+  "[Hidden]Hunter",
   "[Hidden]Dr.Boom"
 ];
 

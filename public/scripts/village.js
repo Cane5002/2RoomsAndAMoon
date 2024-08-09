@@ -176,10 +176,18 @@ function addPlayer(player_) {
                         if (player_.role=="Werewolf") {
                             addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
                         }
+                        if (player_.role.replace("[Hidden]","")=="Lycan") {
+                            addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
+                            break;
+                        }
                         break;
                     case "Sorcerer":
                         if (player_.role=="Werewolf") {
                             addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
+                        }
+                        if (player_.role.replace("[Hidden]","")=="Lycan") {
+                            addImage(playerDiv, "wwIcon", "https://cdn3.emoji.gg/emojis/86623-wolvesville-werewolf.png");
+                            break;
                         }
                         if(player.canPower==0) break;
                         let sorcererBtn = document.createElement('button');
